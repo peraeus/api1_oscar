@@ -14,23 +14,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.apiOscar.model.Oscar;
-import br.com.fiap.apiOscar.repository.OscarRepository;
+import br.com.fiap.apiOscar.model.CategoriaOscar;
+import br.com.fiap.apiOscar.repository.CategoriaOscarRepository;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@RequestMapping("/api/${api.version}/oscar")
-public class OscarController {
+@RequestMapping("/api/${api.version}/categoriaOscar")
+public class CategoriaOscarController {
     @Autowired
-    private OscarRepository repository;
+    private CategoriaOscarRepository repository;
 
     @PostMapping()
-    public ResponseEntity<Oscar> create(@RequestBody Oscar oscar) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(oscar));
+    public ResponseEntity<CategoriaOscar> create(@RequestBody CategoriaOscar categoriaOscar) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(categoriaOscar));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Oscar> findById(@PathVariable Long id) {
+    public ResponseEntity<CategoriaOscar> findById(@PathVariable Long id) {
         return repository
                 .findById(id)
                 .map(ResponseEntity::ok)
@@ -38,27 +38,27 @@ public class OscarController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Oscar>> findAll() {
+    public ResponseEntity<List<CategoriaOscar>> findAll() {
         return ResponseEntity.ok(repository.findAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Oscar> update(@PathVariable Long id,
-            @RequestBody Oscar oscar) {
+    public ResponseEntity<CategoriaOscar> update(@PathVariable Long id,
+            @RequestBody CategoriaOscar categoriaOscar) {
 
-        Optional<Oscar> optOscar = repository.findById(id);
+        Optional<CategoriaOscar> optCategoriaOscar = repository.findById(id);
 
-        if (optOscar.isPresent()) {
-            oscar.setId(id);
-            Oscar oscarAlterado = repository.save(oscar);
-            return ResponseEntity.ok(oscarAlterado);
+        if (optCategoriaOscar.isPresent()) {
+            categoriaOscar.setId(id);
+            CategoriaOscar categoriaOscarAlterado = repository.save(categoriaOscar);
+            return ResponseEntity.ok(categoriaOscarAlterado);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteByID(@PathVariable Long id, @RequestBody Oscar oscar) {
+    public ResponseEntity<Void> deleteByID(@PathVariable Long id, @RequestBody CategoriaOscar categoriaOscar) {
         repository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
