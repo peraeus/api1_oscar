@@ -58,13 +58,6 @@ docker run -d \
     -p 3306:3306 \
     mysql
 ```
-
-3. Se for usar o profile `prd`, rode o script de criação de tabelas antes de subir a API:
-
-```bash
-mysql -h 127.0.0.1 -P 3306 -u root -p db_oscar < src/main/resources/migration-prd.sql
-```
-
 ---
 
 ## 📥 Executando a partir da imagem publicada no Docker Hub
@@ -72,7 +65,7 @@ mysql -h 127.0.0.1 -P 3306 -u root -p db_oscar < src/main/resources/migration-pr
 ### 1. Baixar a imagem
 
 ```bash
-docker pull thisgeh/api1:1.0
+docker pull peraeus/api1_oscar:1.0
 ```
 
 ### 2. Executar o container
@@ -88,7 +81,7 @@ docker run \
   -e DB_SCHEMA=db_oscar \
   -e DB_USER=root \
   -e DB_PWD=root_pwd \
-  thisgeh/api1:1.0
+  peraeus/api1_oscar:1.0
 ```
 
 **Profile `prd`** (produção — banco e tabelas já devem existir, veja seção acima):
@@ -102,12 +95,12 @@ docker run \
   -e DB_SCHEMA=db_oscar \
   -e DB_USER=root \
   -e DB_PWD=root_pwd \
-  thisgeh/api1:1.0
+  peraeus/api1_oscar:1.0
 ```
 
 > **Nota:** `host.docker.internal` permite que o container acesse serviços rodando na máquina host. No Linux, dependendo da configuração do Docker, pode ser necessário `--add-host=host.docker.internal:host-gateway`.
 
-A aplicação ficará disponível em: http://localhost:8080
+A aplicação ficará disponível e documentada em: http://localhost:8080
 
 
 ---
@@ -165,18 +158,18 @@ A aplicação será iniciada em `http://localhost:8080`.
 Na raiz do projeto (onde está o `Dockerfile`):
 
 ```bash
-docker build -t thisgeh/api1:1.0 .
+docker build -t peraeus/api1_oscar:1.0 .
 ```
 
 ### 2. Testar localmente
 
 ```bash
-docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=default thisgeh/api1:1.0
+docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=default peraeus/api1_oscar:1.0
 ```
 
 ### 3. Login e push no Docker Hub
 
 ```bash
 docker login
-docker push thisgeh/api1:1.0
+docker push peraeus/api1_oscar:1.0
 ```
